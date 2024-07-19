@@ -1,167 +1,246 @@
-[Page: 1]
-- ; en /- 7 : |
-( UNIX PROGRAMMER’S MANUAL
+.po 1in
+.ad c
+.sp 20
+UNIX PROGRAMMER'S MANUAL
+
 Second Edition
-K,. Thompson
-| | D. M, Ritchie .
-| | June 12, 1972 ,
-fs
-é . .
-Copyright © 1972
+.sp 3
+K. Thompson
+
+D. M. Ritchie
+.sp 4
+June 12, 1972
+.sp 14
+Copyright © 1972\p
 Bell Telephone Laboratories, Inc.
-No part of this document may be reproduced,
-or distributed outside the Laboratories, without
-the written permission of Bell Telephone Laboratories,
-[Page: 2]
-Suwe L2 \ (TPZ
+
+No part of this document may be reproduced,\p
+or distributed outside the Laboratories, without\p
+the written permission of Bell Telephone Laboratories.
+.bp
+.ad l
+.ce 2
 PREFACE
-to the Second Edition .
-oe In the months since this manual first appeared, many changes have
-- occurred both in the system itself and in the way it is used.
+to the Second Edition
+.sp 2
+In the months since this manual first appeared, many changes have
+occurred both in the system itself and in the way it is used.
+
 Perhaps most obviously, there have been additions, deletions, and
-modifications to the system and its software, It is these
+modifications to the system and its software.  It is these
 changes, of course, that caused the appearance of this revised
 manual.
-{ Second, the number of people spending an appreciable amount of
-. time writing UNIX software has increased. Credit is due to
-L. Le. Cherry, M. D. McIlroy, L. E. McMahon, R, Morris, and
-J. F. Ossanna for their contributions.
+
+Second, the number of people spending an appreciable amount of
+time writing UNIX software has increased.  Credit is due to
+L.\ L.\ Cherry, M.\ D.\ McIlroy, L.\ E.\ McMahon, R.\ Morris, and
+J.\ F.\ Ossanna for their contributions.
+
 Finally, the number of UNIX installations has grown to 10, with
-more expected. None of these has exactly the same complement of
-hardware or software. Therefore, at any particular installation,
+more expected.  None of these has exactly the same complement of
+hardware or software.  Therefore, at any particular installation,
 it is quite possible that this manual will give inappropriate
-information, One area to watch concerns commands which deal with
-special files (1/0 Gevices), Another is places which talk about
+\%information.  One area to watch concerns commands which deal with
+special files (I/O devices).  Another is places which talk about
 such things as absolute core locations which are likely to vary
 with the memory configuration and existence of protection
-hardware. Also, not all installations have the latest versions
-of all the software. In particular, the assembler and loader
-have just undergone ma jor reorganizations in anticipation of a
+\%hardware.  Also, not all installations have the latest versions
+of all the software.  In particular, the assembler and loader
+have just undergone major reorganizations in anticipation of a
 UNIX for the PDP-11/45.
-i
--ii-
-[Page: 3]
-\
-INTRODUCT ION
+.bp
+.ce
+INTRODUCTION
+.sp 2
 This manual gives descriptions of the publicly available features
-: of UNIX. It provides neither a general overview (see The UNIX
-T4ime—-shar ing System for that) nor details of the implement ation
+of UNIX.  It provides neither a general overview (see "The UNIX
+Time-sharing System" for that) nor details of the implementation
 of the system (which remain to be disclosed).
-Within the area it surveys, this manual attempts to be as com—
 
-; plete and timely as possible. A conscious decision was made to
+Within the area it surveys, this manual attempts to be as complete
+and timely as possible.  A conscious decision was made to
 describe each program in exactly the state it was in at the time
-its manual section was prepared, in particular, the desire to
-
-: describe something as it should be, not as it is, was resisted.
+its manual section was prepared.  In particular, the desire to
+describe something as it should be, not as it is, was resisted.
 Inevitably, this means that many sections will soon be out of
-date, (The rate of change of the system is so great that a
-dismayingly large number of early sections had to be mod if ied
-while the rest were being written. The unbounded effort required
-to stay up-to-date 4s best indicated by the fact that several of
+date.  (The rate of change of the system is so great that a
+\%dismayingly large number of early sections had to be modified
+while the rest were being written.  The unbounded effort required
+to stay up-to-date is best indicated by the fact that several of
 the programs described were written specifically to aid in
-preparation of this manual ! )
+\%preparation of this manual!)
 
-ae This manual is divided into seven sections:
-|
-\ I. Commands
-II. System calls
-III. Subroutines
-Iv. Special files
-Ve File formats
-vi. User-maintained programs
-VII. Miscellaneous
-GCommands are programs intended to be invoked directly by the
+This manual is divided into seven sections:
+
+.nf
+.in 3
+.ta 5
+I.	Commands
+II.	System calls
+III.	Subroutines
+IV.	Special files
+V.	File formats
+VI.	User-maintained programs
+VII.	Miscellaneous
+
+.fi
+.in 0
+Commands are programs intended to be invoked directly by the
 user, in contradistinction to subroutines, which are intended to
-be called by the user’s programs. Commands generally reside in
-directory /bin (for binary programs). This directory is searched
-automatically by the command line interpreter. Some programs
-classified as commands are located elsewhere; this fact is indi-
-: cated in the appropriate sections.
-System calls are entries into the UNIX supervisor. jin assembly
-language, they are coded with the use of the opcode “sys , a
-- synonym for the trap instruction.
-A small assortment of subroutines is available; they are .
-described in section III, The binary form of most of them is
+be called by the user's programs.  Commands generally reside in
+directory
+.ul
+/bin
+(for
+.ul
+bin\c
+ary programs).  This directory is searched
+automatically by the command line interpreter.  Some programs
+classified as commands are located elsewhere; this fact is indicated
+in the appropriate sections.
+
+System calls are entries into the UNIX supervisor.  In assembly
+language, they are coded with the use of the opcode "sys", a
+\%synonym for the
+.ul
+trap
+instruction.
+
+A small assortment of subroutines is available; they are
+\%described in section III.  The binary form of most of them is
 kept in the system library /usr/lib/liba.a.
-(
-The special files section Iv discusses the characteristics of
-each system file which actually refers to an I/o device.
+
+The special files section IV discusses the characteristics of
+each system "file" which actually refers to an I/O device.
+
 The file formats section V documents the structure of particular
 kinds of files; for example, the form of the output of the loader
-and assembler is given. Excluded are files used by only one com—
-mand, for example the assembler’s intermediate files.
-= dii -
-[Page: 4]
+and assembler is given.  Excluded are files used by only one command,
+for example the assembler's intermediate files.
+.bp
 User-maintained programs (section VI) are not considered part of
 the UNIX system, and the principal reason for listing them is to
 indicate their existence without necessarily giving a complete
-description. The author should be consulted for information.
+description.  The author should be consulted for information.
+
 The miscellaneous section (VII) gathers odds and ends.
-{ ;
+.sp 2
 Each section consists of a number of independent entries of a
 page or so each. The name of the entry is in the upper right
-corner of its pages, its preparation date in the upper left.
-Entries within each section are alphabetized. It was thought
+\%corner of its pages, its preparation date in the upper left.
+\%Entries within each section are alphabetized.  It was thought
 better to avoid running page numbers, since it is hoped that the
-manual will be updated frequently. Therefore each entry is nun-
-- | pered starting at page 1.
+manual will be updated frequently.  Therefore each entry is
+numbered starting at page 1.
+
 All entries have a common format.
-The name section repeats the entry name and gives a very
-short description of its purpose. .
-; The synopsis summarizes the use of the program being
-described. A few conventions are used, particularly in the
+
+.in 5
+The
+.ul
+name
+section repeats the entry name and gives a very
+short description of its purpose.
+
+The
+.ul
+synopsis
+summarizes the use of the program being
+\%described.  A few conventions are used, particularly in the
 Commands section:
+
+.in 8
 Underlined words are considered literals, and are typed
 just as they appear.
-Square brackets ({]) around an argument indicate that the
-argument is optional, When an argument is given as
-name:, it always refers to a file name.
-Ell ipses "4. are used to show that the previous
-argument-—prototype may be repeated.
+
+Square brackets ([]) around an argument indicate that the
+argument is optional.  When an argument is given as
+"name", it always refers to a file name.
+
+Ellipses "..." are used to show that the previous
+\%argument-prototype may be repeated.
+
 A final convention is used by the commands themselves.
-An argument beginning with a minus sign - is often tak-
-en to mean some sort of flag argument even if it appears
-in a position where a file name could appear. Therefore,
-, it is unwise to have files whose names begin with —- .
-The description section discusses in detail the subject at
-hand.
-The files section gives the names of files which are built
-into the program,
-A see also section gives pointers to related information.
-A diagnostics section discusses the diagnostics that may be
-produced. This section tends to be as terse as the diagnos-—
-tics themselves,
-The bugs section gives known bugs and sometimes deficien-
-cies, occasionally also the suggested fix is described.
--~ iv-
-[Page: 5]
-The owner section gives the name of the person or persons to
-pe consulted in case of aifficulty. The rule has been that
+An argument beginning with a minus sign "-" is often tak\%en
+to mean some sort of flag argument even if it appears
+in a position where a file name could appear.  Therefore,
+it is unwise to have files whose names begin with "-".
+
+.in 5
+The
+.ul
+description
+section discusses in detail the subject at hand.
+
+The
+.ul
+files
+section gives the names of files which are built
+into the program.
+
+A
+.ul
+see also
+section gives pointers to related information.
+
+A
+.ul
+diagnostics
+section discusses the diagnostics that may be
+produced.  This section tends to be as terse as the diagnostics
+themselves.
+
+The
+.ul
+bugs
+section gives known bugs and sometimes deficiencies.  Occasionally
+also the suggested fix is described.
+.bp
+The
+.ul
+owner
+section gives the name of the person or persons to
+be consulted in case of difficulty.  The rule has been that
 the last one to modify something owns it, so the owner is
-not necessarily the author. The owner’s nicknames stand
-for:
-i ken K, Thompson
-: amr D. M. Ritchie .
-jfo J. F. ossanna
-rhm R, Morris
-doug M, D. McIlroy
-lem L. E. McMahon
-lic L, L. Cherry
-csr Cc. S. Roberts
-These nicknames also happen to be UNIX user ID’s, so mes—
-sages may be transmitted by the mail command or, if the
-addressee is logged in, by write.
-At the peginning of this document is a table of contents, organ-
-ized by section and alphabetically within each section. There is
-also a permuted index derived from the table of contents. Within
+not necessarily the author.  The owner's nicknames stand for:
+
+.nf
+.in 8
+.ta 7
+ken	K. Thompson
+dmr	D. M. Ritchie
+jfo	J. F. Ossanna
+rhm	R. Morris
+doug	M. D. McIlroy
+lem	L. E. McMahon
+llc	L. L. Cherry
+csr	C. S. Roberts
+
+.fi
+.in 5
+These nicknames also happen to be UNIX user ID's, so messages
+may be transmitted by the
+.ul
+mail
+command or, if the \%addressee is logged in, by
+.ul
+write\c
+\&.
+
+.in 0
+At the beginning of this document is a table of contents, organ\%ized
+by section and alphabetically within each section.  There is
+also a permuted index derived from the table of contents.  Within
 each index entry, the title of the writeup to which it refers is
-followed by the appropriate section number in parentheses. This
+followed by the appropriate section number in parentheses.  This
 fact is important because there is considerable name duplication
-; among the sections, arising principally from commands which exist
-only to exercise a part icular system call.
-This manual was prepared using the UNIX text editor ed and the
-formatting program roff.
-{
-it
-- V=-—
+among the sections, arising principally from commands which exist
+only to exercise a particular system call.
+.sp 2
+This manual was prepared using the UNIX text editor
+.ul
+ed
+and the formatting program
+.ul
+roff\c
+\&.
