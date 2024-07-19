@@ -1,4 +1,4 @@
-.po 1in
+.po 1i
 .ad c
 .sp 20
 UNIX PROGRAMMER'S MANUAL
@@ -11,7 +11,7 @@ D. M. Ritchie
 .sp 4
 June 12, 1972
 .sp 14
-Copyright © 1972\p
+Copyright \uc\d 1972\p
 Bell Telephone Laboratories, Inc.
 
 No part of this document may be reproduced,\p
