@@ -1,0 +1,80 @@
+.sc 1
+TABLE OF CONTENTS
+.pg
+I.  COMMANDS
+
+.nf
+.ta 29
+:  place label
+acct  get connect-time accounting
+ar  archive (combine) files
+as  assembler
+bas  BASIC dialect
+cat  concatenate (or print) files
+cc  compile C program
+chdir  change working directory
+check  check consistency of file system
+chmod  change access mode of files
+chown  change owner of files
+cmp  compare file contents
+cp  copy file
+date  get date and time of day
+db  symbolic debugger
+dc  desk calculator
+df  find free disk space
+dpd  spawn data-phone daemon
+ds  verify directory hierarchy
+dsw  delete files interactively
+du  find disk usage
+echo  print command arguments
+ed  text editor
+exit  end command sequence
+fc  compile Fortran program
+fed  form-letter editor
+find  find file with given name
+form  generate form letter
+goto  command transfer
+if  conditional command
+istat  file status by i-number
+ld  link editor (loader)
+ln  link to file
+login  log on to system
+ls  list contents of directory
+mail  send mail to another user
+man  run off manual section
+mesg  permit or deny messages
+mkdir  create directory
+mount  mount detachable file system
+mt  save/restore files on magtape
+mv  move or rename file
+m6  macroprocessor
+nm  print namelist
+nroff  format text for printing
+od  octal dump of file
+opr  print file off-line
+ov  page overlay file print
+pr  print file with headings
+rew  rewind DECtape
+rm  remove (delete) file
+rmdir  remove (delete) directory
+roff  format text for printing
+salv  repair damaged file system
+sh  command interpreter
+sort  sort ASCII file
+stat  get file status
+strip  remove symbols, relocation bits
+stty  set typewriter modes
+su  become super-user
+sum  sum file
+tacct  connect-time accounting
+tap  manipulate DECtape
+tm  get time information
+tss  communicate with MH-TSS (GCOS)
+tty  find name of terminal
+type  print file page-by-page
+umount  dismount removable file system
+un  find undefined symbols
+wc  get (English) word count
+who  who is on the system
+write  write to another user
+.li

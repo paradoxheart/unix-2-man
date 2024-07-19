@@ -11,10 +11,13 @@
 .de sc
 .bp
 .ad c
-.sp 2
+.ie \\$1 .nr sp \\$1 0
+.el .nr sp 2 0
+.sp \\n(sp
 ..
 .de pg
-.sp 2
+.sp \\n(sp
+.rr hs
 .ad l
 ..
 .ad c
@@ -261,3 +264,4 @@ and the formatting program
 .ul
 roff\c
 \&.
+.nx toc.man
