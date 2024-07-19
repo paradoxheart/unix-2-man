@@ -77,4 +77,132 @@ un  find undefined symbols
 wc  get (English) word count
 who  who is on the system
 write  write to another user
-.li
+
+
+II.  SYSTEM CALLS
+
+break  set program break
+cemt  catch EMT traps
+chdir  change working directory
+chmod  change mode of file
+chown  change owner of file
+close  close open file
+creat  create file
+exec  execute program file
+exit  terminate execution
+fork  create new process
+fstat  status of open file
+getuid  get user ID
+gtty  get typewriter mode
+hog  set low-priority status
+ilgins  catch illegal instruction trap
+intr  catch or inhibit interrupts
+link  link to file
+kill  destroy process
+makdir  create directory
+mdate  set date modified of file
+mount  mount file system
+open  open file
+quit  catch or inhibit quits
+read  read file
+rele  release processor
+seek  move read or write pointer
+setuid  set user ID
+sleep  delay execution
+stat  get file status
+stime  set system time
+stty  set mode of typewriter
+sync  assure synchronization
+tell  find read or write pointer
+time  get time of year
+umount  dismount file system
+unlink  remove (delete) file
+wait  wait for process
+write  write file
+
+
+III.  SUBROUTINES
+
+atan  arctangent
+atof  convert ASCII to floating
+atoi  convert ASCII to integer
+const  floating-point constants
+ctime  convert time to ASCII
+exp  exponential function
+fptrap  floating-point simulator
+ftoa  convert floating to ASCII
+gerts  communicate with GCOS
+getc  get character
+hypot  compute hypotenuse
+itoa  convert integer to ASCII
+log  logarithm base e
+mesg  print string on typewriter
+nlist  read name list
+ptime  print time
+putc  write character or word
+qsort  quicker sort
+salloc  storage allocator
+sin  sine, cosine
+sqrt  square root
+switch  transfer depending on value
+
+
+IV.  SPECIAL FILES
+
+dn0  801 ACU
+dp0  201 Dataphone
+lpr  line printer
+mem  core memory
+mt0  magtape
+ppt  punched paper tape
+rf0  RF disk
+rk0  RK disk
+rp0  RP disk
+tap0  DECtape
+tty  console typewriter
+tty0  remote typewriter
+
+
+V.  FILE FORMATS
+
+a.out  assembler and loader output
+archive  archive file
+core  core image file
+directory  directory format
+file system  file system format
+ident  GCOS ident cards
+passwd  password file
+tap  DECtape format
+uids  map names to user ID's
+utmp  logged-in user information
+wtmp  accounting files
+
+
+VI.  USER MAINTAINED PROGRAMS
+
+basic  DEC supplied BASIC
+bc  compile B program
+bj  the game of black jack
+cal  print calendar
+chash  prepare symbol table
+cref  cross-reference table
+das  disassembler
+dli  load DEC binary paper tapes
+dpt  read DEC ASCII paper tapes
+moo  the game of MOO
+ptx  permuted index
+tmg  compile tmgl program
+ttt  the game of tic-tac-toe
+
+
+VII.  MISCELLANEOUS
+
+ascii  map of ASCII
+bproc  boot procedure
+getty  adapt to typewriter
+glob  argument expander
+init  initializer process
+kbd  map of TTY 37 keyboard
+login  how to log onto system
+msh  mini Shell
+tabs  set tab stops on typewriter
