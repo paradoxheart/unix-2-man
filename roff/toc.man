@@ -206,3 +206,5 @@ kbd  map of TTY 37 keyboard
 login  how to log onto system
 msh  mini Shell
 tabs  set tab stops on typewriter
+.fi
+.nx index.man

@@ -5,7 +5,9 @@
 ..
 .de fo
 
-.tl ''- % -''
+.ti 0
+.ce
+- \\n% -
 'bp
 ..
 .de sc
@@ -169,7 +171,7 @@ summarizes the use of the program being
 \%described.  A few conventions are used, particularly in the
 Commands section:
 
-.in 8
+.in +3
 Underlined words are considered literals, and are typed
 just as they appear.
 
@@ -186,7 +188,7 @@ to mean some sort of flag argument even if it appears
 in a position where a file name could appear.  Therefore,
 it is unwise to have files whose names begin with "-".
 
-.in 5
+.in -3
 The
 .ul
 description
@@ -225,7 +227,7 @@ the last one to modify something owns it, so the owner is
 not necessarily the author.  The owner's nicknames stand for:
 
 .nf
-.in 8
+.in +3
 .ta 7
 ken	K. Thompson
 dmr	D. M. Ritchie
@@ -237,7 +239,7 @@ llc	L. L. Cherry
 csr	C. S. Roberts
 
 .fi
-.in 5
+.in -3
 These nicknames also happen to be UNIX user ID's, so messages
 may be transmitted by the
 .ul
