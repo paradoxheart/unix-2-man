@@ -1,4 +1,22 @@
 .po 1i
+.af % i
+.de hd
+'sp 4
+..
+.de fo
+
+.tl ''- % -''
+'bp
+..
+.de sc
+.bp
+.ad c
+.sp 2
+..
+.de pg
+.sp 2
+.ad l
+..
 .ad c
 .sp 20
 UNIX PROGRAMMER'S MANUAL
@@ -17,12 +35,11 @@ Bell Telephone Laboratories, Inc.
 No part of this document may be reproduced,\p
 or distributed outside the Laboratories, without\p
 the written permission of Bell Telephone Laboratories.
-.bp
-.ad l
-.ce 2
-PREFACE
+.wh 0 hd
+.sc
+PREFACE\p
 to the Second Edition
-.sp 2
+.pg
 In the months since this manual first appeared, many changes have
 occurred both in the system itself and in the way it is used.
 
@@ -48,10 +65,10 @@ with the memory configuration and existence of protection
 of all the software.  In particular, the assembler and loader
 have just undergone major reorganizations in anticipation of a
 UNIX for the PDP-11/45.
-.bp
-.ce
+.wh -6 fo
+.sc
 INTRODUCTION
-.sp 2
+.pg
 This manual gives descriptions of the publicly available features
 of UNIX.  It provides neither a general overview (see "The UNIX
 Time-sharing System" for that) nor details of the implementation
@@ -117,7 +134,7 @@ The file formats section V documents the structure of particular
 kinds of files; for example, the form of the output of the loader
 and assembler is given.  Excluded are files used by only one command,
 for example the assembler's intermediate files.
-.bp
+
 User-maintained programs (section VI) are not considered part of
 the UNIX system, and the principal reason for listing them is to
 indicate their existence without necessarily giving a complete
@@ -195,7 +212,7 @@ The
 bugs
 section gives known bugs and sometimes deficiencies.  Occasionally
 also the suggested fix is described.
-.bp
+
 The
 .ul
 owner
