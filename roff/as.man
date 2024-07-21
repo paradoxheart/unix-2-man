@@ -1,0 +1,554 @@
+.ds dt 6/15/72
+.ds nm as
+.ds un AS
+.ds sc I
+.ds sd assembler
+.bp 1
+.ch fo -4
+.mn
+.sy
+[
+.ul
+-
+] name\d1\u ...
+.dn
+assembles the concatenation of name\d1\u, ....
+.ul
+as
+is based on the DEC-provided assembler PAL-11R
+[1], although it was coded locally.  Therefore,
+only the differences will be recorded.
+
+If the optional first argument
+.ul
+-
+is used, all \%undefined symbols in the assembly are
+treated as global.
+
+Character changes are:
+
+.nf
+.in +5
+.ta 1C 8C
+	for	use
+	@	*
+	#	$
+	;	/
+
+.fi
+.in -5
+In
+.ul
+as\c
+, the character ";" is a logical new line;
+several operations may appear on one line if
+\%separated by ";".  Several new expression operators
+have been provided:
+
+.nf
+.in +5
+.ta 7
+\\>	right shift (logical)
+\\<	left shift
+*	multiplication
+\\/	division
+%	remainder (no longer means "register")
+!	one's complement
+[]	parentheses for grouping
+^	result has value of left, type of right
+
+.fi
+.in -5
+For example location 0 (relocatable) can be written
+"0^."; another way to denote register 2 is
+"2^r0".
+
+All of the preceding operators are binary; if a
+left operand is missing, it is taken to be 0.
+The "!" operator adds its left operand to the
+one's complement of its right operand.
+
+There is a conditional assembly operation code
+different from that of PAL-11R (whose conditionals
+are not provided):
+
+.nf
+.in +5
+\&.if expression
+\&...
+\&.endif
+
+.fi
+.in -5
+If the
+.ul
+expression
+evaluates to non-zero, the section
+of code between the ".if" and the ".endif"
+is assembled; otherwise it is ignored.  ".if"s
+may be nested.
+
+Temporary labels like those introduced by Knuth
+[2] may be employed.  A temporary label is defined
+as follows:
+
+.in +5
+n:
+.in -5
+
+where
+.ul
+n
+is a digit 0 ... 9.  Symbols of the form
+"\c
+.ul
+n\c
+f" refer to the first label "\c
+.ul
+n\c
+:" following the
+use of the symbol; those of the form "\c
+.ul
+n\c
+b" refer
+to the last "\c
+.ul
+n\c
+:".  The same "\c
+.ul
+n\c
+" may be used many
+times.  Labels of this form are less taxing both
+on the imagination of the programmer and on the
+symbol table space of the assembler.
+
+The PAL-11R opcodes ".word", ".eot" and ".end"
+are redundant and are omitted.
+
+The symbols
+
+.nf
+.in +5
+r0 ... r5
+fr0 ... fr5 (floating-point registers)
+sp
+pc
+ac
+mq
+div
+mul
+lsh
+ash
+nor
+csw
+\&..
+
+.fi
+.in -5
+are predefined with appropriate values.  The symbol
+"csw" refers to the console switches.  ".."
+is the relocation constant and is added to each
+relocatable reference.  On a PDP-11 with relocation
+hardware, its value is 0; on most systems
+without protection, its value is 40000(8).
+
+The new opcode "sys" is used to specify system
+calls.  Names for system calls are predefined.
+See section (II).
+
+The opcodes "bes" (branch on error set) and "bec"
+(branch on error clear) are defined to test the
+error status bit set on return from system calls.
+
+Strings of characters may be assembled in a way
+more convenient than PAL-11's ".ascii" operation
+(which is, therefore, omitted).  Strings are
+\%included between the string quotes "<" and ">":
+
+.in +5
+<here is a string>
+.in -5
+
+Escape sequences exist to enter non graphic and\p
+other difficult characters.  These sequences are
+also effective in single and double character
+constants introduced by single (') and double (")
+quotes respectively.
+
+.nf
+.in +5
+.ul
+.ta 5
+use	for
+\\n	newline (012)
+\\0	NULL (000)
+\\>	>
+\\t	TAB (011)
+\\a	ACK (006)
+\\r	CR (015)
+\\p	ESC (033)
+\\\\	\\ (134)
+
+.fi
+.in -5
+.ul
+as
+provides a primitive segmentation facility.
+There are three segments:
+.ul
+text\c
+,
+.ul
+data
+and
+.ul
+bss\c
+\&.
+The text segment is ordinarily used for code.
+The data segment is provided for initialized but
+variable data.  The bss segment cannot be initialized,
+but symbols may be defined to lie
+within this segment.  In the future, it is expected
+that the text segment will be write-
+\%protected and sharable.  Assembly begins in the
+text segment.  The pseudo-operations
+
+.nf
+.in +9
+\&.text
+\&.data
+\&.bss
+
+.fi
+.in -9
+cause the assembler to switch to the text, data,
+or bss segment respectively.  Segmentation is
+useful at present for two reasons: Non-
+\%initialized tables and variables, if placed in
+the bss segment, occupy no space in the output
+file.  Also, alternative use of the text and data
+segments provides a primitive dual location-counter
+feature.
+
+In the output file, all text-segment information
+comes first, followed by all data-segment information,
+and finally bss information.  Within each
+segment, information appears in the order written.
+
+Note: since nothing explicit can be assembled
+into the bss segment, the usual appearance of
+this segment is in the following style:
+
+.nf
+.in +8
+.ta 8
+\&.bss
+var1:	.=.+2
+tab1:	.=.+100.
+\&...
+
+.fi
+.in -8
+That is, space is reserved but nothing explicit
+is placed in it.
+
+As is evident from the example, it is legal to
+assign to the location counter ".".  It is also
+permissible in segments other than ".bss".  The
+restriction is made, however, that the value so
+assigned must be defined in the first pass and it
+must be a value associated with the same segment
+as ".".
+
+The pseudo-op
+
+.in +8
+.ta 8
+\&.comm	symbol,expression
+.in -8
+
+makes
+.ul
+symbol
+an undefined global symbol, and
+places the value of the expression in the value
+field of the symbol's definition.  Thus the above
+declaration is equivalent to
+
+.nf
+.in +8
+\&.globl	symbol
+symbol = expression ^ symbol
+
+.fi
+.in -8
+The treatment of such a symbol by the loader
+ld(I) is as follows: If another routine in the
+same load defines the symbol to be an ordinary
+text, data, bss, or absolute symbol, that definition
+takes precedence and the symbol acts like a
+normal undefined external.  If however no other
+routine defines the symbol, the loader defines it
+as an external bss-segment symbol and reserves
+.ul
+n
+bytes after its location, where
+.ul
+n
+is the value of
+the expression in the .comm operation.  Thus
+".comm x,100" effectively declares x to be a common
+region 100 bytes long.  Note: all such de\%clarations
+for the same symbol in various
+\%routines should request the same amount of space.
+
+The binary output of the assembler is placed on
+the file "a.out" in the current directory.
+.ul
+a.out
+also contains the symbol table from the assembly
+and relocation bits.  The output of the assembler
+is executable immediately if the assembly was
+\%error-free and if there were no unresolved external
+references.  The link editor
+.ul
+ld
+may be used
+to combine several assembly outputs and resolve
+global symbols.
+
+The assembler does not produce a listing of the
+source program.  This is not a serious drawback;
+the debugger
+.ul
+db
+discussed below is sufficiently
+powerful to render a printed octal translation of
+the source unnecessary.
+
+On the last pages of this section is a list of
+all the assembler's built-in symbols.  In the
+case of instructions, the addressing modes are as
+follows:
+
+.nf
+.in +8
+src, dst	source, destination
+r	general register
+fsrc,fdst	floating source, destination
+fr	floating register
+exp	expression
+
+.fi
+.in -8
+The names of certain 11/45 opcodes are different
+from those in the 11/45 manual; some were changed
+to avoid conflict with EAE register names, others
+to draw analogies with existing 11/20 instructions.
+.nf
+.fl
+/etc/as2	pass 2 of the assembler
+/tmp/atm1?	temporary
+/tmp/atm2?	temporary
+/tmp/atm3?	temporary
+a.out	object
+.fi
+.sa
+ld(I), nm(I), sh(I), un(I), db(I), a.out(V),
+\%fptrap(III), [1] PAL-11R Assembler; DEC-11-ASDB-
+D, [2] Knuth,
+.ul
+The Art of Computer Programming\c
+,
+Vol. I; Fundamental Algorithms.
+.dg
+When an input file cannot be read, its name followed
+by a question mark is typed and assembly
+ceases.  When syntactic or semantic errors occur,
+a single-character diagnostic is typed out together
+with the line number and the file name in
+which it occurred.  Errors in pass 1 cause cancellation
+of pass 2.  The possible errors are:
+
+.nf
+.ta 3
+)	parentheses error
+]	parentheses error
+<	String not terminated properly
+*	Indirection ("\c
+.ul
+*\c
+") used illegally
+\&.	Illegal assignment to "."
+A	error in \c
+.ul
+A\c
+ddress
+B	\c
+.ul
+B\c
+ranch instruction is odd or too remote
+E	error in \c
+.ul
+E\c
+xpression
+F	error in local ("\c
+.ul
+F\c
+" or "b") type symbol
+G	\c
+.ul
+G\c
+arbage (unknown) character
+I	End of file inside an \c
+.ul
+If
+M	\c
+.ul
+M\c
+ultiply defined symbol as label
+O	\c
+.ul
+O\c
+dd-- word quantity assembled at odd address
+P	\c
+.ul
+P\c
+hase error-- "." different in pass 1 and 2
+R	\c
+.ul
+R\c
+elocation error
+U	\c
+.ul
+U\c
+ndefined symbol
+X	synta\c
+.ul
+X \c
+error
+.fi
+.ta 16
+.bg
+Symbol table overflow is not checked.
+
+If "." is moved backwards by an odd number of
+bytes, relocation bits are corrupted.
+.ow
+dmr
+
+.nf
+.in 0
+Special variables: tell
+mount
+e umount
+oe setuid
+getuid
+Register: stime
+‘ quit
+N rO intr
+ri fstat
+r2 cemt
+r3 mdate
+r4 stty
+r5 gtty
+sp ilgins
+, pc hog
+‘ fro
+fri Double operand:
+fr2
+fr3 , mov src,dst
+fr4 movb 7
+fr5 cmp .
+cmpb "
+Fae & switches: bit .
+bitb .
+csw bic
+div bicb .
+ac bis "
+mq bisb *
+mul add .
+sc sub
+sr
+nor Branch:
+ish
+ash br
+bne -
+System calls: beq
+bge
+exit blt
+fork bgt
+. read ble
+{ write bpl
+open bmi
+close bhi
+wait blos
+creat bve
+link bvs
+unlink bhis
+exec . bec (= bec)
+; chdir bec
+time blo
+makdir bes ;
+chmod bes (= bes)
+chown
+br eak
+stat
+seek
+~6-
+[Page: 33]
+6/15/72 AS (I)
+Single operand: tstf fsre
+movt fsrc,fr (= ldf)
+clr ast movf fr,fdst (= stf )
+clrb " movif src,fr (= ldcif)
+com " movfi fr,dst (= stcfi)
+comb movoft fsrce,fr (= ldcdf )
+a inc " movfo fr,fdst (= stcfd)
+incb " ~  addft fsrc,fr
+dec - subf fsrc,fr
+decb mulf fscr,fr
+neg " aivf fsrc,fr
+negb " empf fsre,fr
+adc . modf fsrc,fr
+adcb .
+sbc ; 141/45 operations
+: sbcb "
+ror . als src,r (= ash)
+rorb alsc src,r (= ashc)
+rol " mpy src,r (= mul)
+rolb " avd src,r (= div)
+asr xor src,r
+asrb " sxt dst
+asl " mark exp
+aslb " sob r,exp
+: jmp .
+swab os Specials
+tst src
+tstb src ~byte
+even
+Miscellaneous: if
+endif
+jsr r,dst .globl
+rts xr etext
+. ; sys exp (= trap) .data
+; bss
+Flag-setting: - comm
+clc ;
+clv
+clz
+{ cin
+sec
+sev
+sez
+sen
+Floating point Ops:
+( cfcc
+setf
+setd
+seti
+setl
+clrf fdst
+negf fdst
+absf fdst
+

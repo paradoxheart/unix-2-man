@@ -125,3 +125,4 @@ a new file in an archive.  Currently, it is
 placed at the end.
 .ow
 ken, dmr
+.nx as.man

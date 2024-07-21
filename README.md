@@ -10,4 +10,8 @@ So far, the title and intro pages, table of contents, and index are completed, w
 - It seems like control codes are normally lower case in modern roff, but I should check period documents to see if uppercase was more common.
 - Classical nroff output two spaces instead of one after the end of a sentence. Current groff leaves this up to the document author, unless the sentences are separated by a new line, in which case it follows the behaviour of old nroff and adds two spaces. I will add the two spaces manually.
 
-The first two commands are now also available.
+The following commands are available:
+- :
+- acct
+- ar
+- as (WIP)
