@@ -7,7 +7,7 @@
 
 .ti 0
 .ce
-- \\n% -
+.if !\\n(np - \\n% -
 'bp
 ..
 .de sc

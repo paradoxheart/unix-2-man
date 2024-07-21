@@ -667,3 +667,6 @@ INDEX
 	dp0(IV):	201 Dataphone
 	kbd(VII): map of TTY	37 keyboard
 .fi
+.bp
+.nr np 1 0
+.nx label.man
