@@ -1,54 +1,60 @@
 .de hd
-'sp 4
+'sp 0.5i
 .ta 6.5iR
 .ti 0
 \\*(dt	\\*(un (\\*(sc)
 .ta 16
 .sp 2
 ..
+.ch fo -5
 .de mn
 .ti 0
 NAME	\\*(nm \\$1--\\$1 \\*(sd
-
+..
+.de sy
+.sp
 .ti 0
 SYNOPSIS	\c
 .ul
 \\*(nm
-\\*(sy
-
+..
+.de dn
+.sp
 .ti 0
 DESCRIPTION	\c
 .ul
 \\*(nm
 ..
-.de mm
+.de fl
 .sp
 .ti 0
-FILES	\\*(fi
-
+FILES	\c
+..
+.de sa
+.sp
 .ti 0
-SEE ALSO	\\*(sa
-
+SEE ALSO	\c
+..
+.de dg
+.sp
 .ti 0
-DIAGNOSTICS	\\*(dg
-
+DIAGNOSTICS	\c
+..
+.de bg
+.sp
 .ti 0
-BUGS	\\*(bg
-
+BUGS	\c
+..
+.de ow
+.sp
 .ti 0
-OWNER	\\*(ow
+OWNER	\c
 ..
 .ds dt 3/15/72
 .ds nm :
 .ds un :
 .ds sc I
 .ds sd place a label
-.ds sy [ label ]
-.ds fi --
-.ds sa goto(I)
-.ds dg --
-.ds bg --
-.ds ow dmr
 .bp 1
 .rr np
 .af % 1
@@ -56,6 +62,9 @@ OWNER	\\*(ow
 .ll 6.5i
 .in 16
 .mn \ 
+.sy
+[ label ]
+.dn
 does nothing.  Its only function is to place a label for the
 .ul
 goto
@@ -65,5 +74,14 @@ command.
 is a command so
 the Shell doesn't have to be fixed to ignore
 lines with :'s.
-.mm
+.fl
+--
+.sa
+goto(I)
+.dg
+--
+.bg
+--
+.ow
+dmr
 .nx acct.man

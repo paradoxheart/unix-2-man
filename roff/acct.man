@@ -3,14 +3,11 @@
 .ds un ACCT
 .ds sc I
 .ds sd login accounting
-.ds sy [ wtmp ]
-.ds fi /tmp/wtmp
-.ds sa init(VII), tacct(I), login(I), wtmp(V).
-.ds dg \&"Cannot open 'wtmp'" if argument is unreadable.
-.ds bg --
-.ds ow dmr, ken
 .bp 1
 .mn
+.sy
+[ wtmp ]
+.dn
 produces a printout giving connect time and
 total number of connects for each user who has
 logged in during the life of the current
@@ -21,4 +18,14 @@ is given,
 .ul
 /tmp/wtmp
 is used.
-.mm
+.fl
+/tmp/wtmp
+.sa
+init(VII), tacct(I), login(I), wtmp(V).
+.dg
+"Cannot open 'wtmp'" if argument is unreadable.
+.bg
+--
+.ow
+dmr, ken
+.nx ar.man

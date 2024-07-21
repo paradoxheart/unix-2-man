@@ -1,0 +1,127 @@
+.ds dt 3/15/72
+.ds nm ar
+.ds un AR
+.ds sc I
+.ds sd archive
+.bp 1
+.mn
+.sy
+key afile name\d1\u ...
+.dn
+maintains groups of files combined into a single
+archive file.  Its main use is to create and
+update library files as used by the loader.  It
+can be used, though, for any similar purpose.
+
+.ul
+key
+is one character from the set
+.ul
+drtux\c
+, optionally concatenated with
+.ul
+v\c
+\&.
+.ul
+afile
+is the archive file.
+The
+.ul
+names
+are constituent files in the archive file.
+The meanings of the
+.ul
+key
+characters are:
+
+.ul
+d
+means delete the named files from the archive file.
+
+.ul
+r
+means replace the named files in the archive
+file.  If the archive file does not exist,
+.ul
+r
+will create it.  If the named files are not in the
+archive file, they are appended.
+
+.ul
+t
+prints a table of contents of the archive file.
+If no names are given, all files in the archive
+are tabled.  If names are given, only those files
+are tabled.
+
+.ul
+u
+is similar to
+.ul
+r
+except that only those files
+that have been modified are replaced.  If no
+names are given, all files in the archive that
+have been modified will be replaced by the modified
+version.
+
+.ul
+x
+will extract the named files.  If no names are
+given, all files in the archive are extracted.
+In neither case does
+.ul
+x
+alter the archive file.
+
+.ul
+v
+means verbose.  Under the verbose option,
+.ul
+ar
+gives a file-by-file description of the making of
+a new archive file from the old archive and the
+constituent files.  The following abbreviations
+are used:
+
+.nf
+.in +3
+.ul
+c \c
+copy
+.ul
+a \c
+append
+.ul
+d \c
+delete
+.ul
+r \c
+replace
+.ul
+x \c
+extract
+.fi
+.in -3
+.fl
+/tmp/vtm?        temporary
+.sa
+ld(I), archive(V)
+.dg
+"Bad usage", "afile -- not in archive format",
+"cannot\ open\ temp\ file",\ "name\ --\ cannot\ open",
+"name -- phase error", "name -- cannot create",
+"no archive file", "cannot create archive file",
+"name -- not found".
+.bg
+Option
+.ul
+vt
+should be implemented as a table with
+more information.
+
+There should be a way to specify the placement of
+a new file in an archive.  Currently, it is
+placed at the end.
+.ow
+ken, dmr
